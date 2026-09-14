@@ -16,19 +16,39 @@ Algorithm:
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
 
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    if (n >= 71 && n <= 79) {
+        switch (n) {
+            case 71: printf("seventy one\n"); break;
+            case 72: printf("seventy two\n"); break;
+            case 73: printf("seventy three\n"); break;
+            case 74: printf("seventy four\n"); break;
+            case 75: printf("seventy five\n"); break;
+            case 76: printf("seventy six\n"); break;
+            case 77: printf("seventy seven\n"); break;
+            case 78: printf("seventy eight\n"); break;
+            case 79: printf("seventy nine\n"); break;
+        }
+    } else if (n > 79) {
+        printf("Greater than 79\n");
+    }
+
+    return 0;
+}
+```
 
 
 
 Output:
 
 
-//paste your output here
-
-
-
-
+<img width="552" height="261" alt="image" src="https://github.com/user-attachments/assets/39e020e6-f07b-4683-9ff4-652df9d3d0d4" />
 
 
 Result:
@@ -46,20 +66,35 @@ Algorithm:
 6.	End
  
 Program:
+```
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
 
-//type your code here
+int main() {
+    char s[1000];
+    scanf("%s", s);   
 
+    int freq[10] = {0};  
+
+    for (int i = 0; i < strlen(s); i++) {
+        if (isdigit(s[i])) {
+            freq[s[i] - '0']++;  
+        }
+    }
+    for (int i = 0; i < 10; i++) {
+        printf("%d", freq[i]);
+        if (i < 9) printf(" ");  
+    }
+    return 0;
+}
+```
 
 
 
 Output:
 
-
-//paste your output here
-
-
-
-
+<img width="722" height="207" alt="image" src="https://github.com/user-attachments/assets/26c43fc4-0d7a-43c9-a6fe-538925aea432" />
 
 
 Result:
@@ -84,18 +119,73 @@ Free the memory allocated for each string in s Free the memory allocated for s
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
+void swap(char **a, char **b) {
+    char *temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+void reverse(char **arr, int l, int r) {
+    while (l < r) {
+        swap(&arr[l], &arr[r]);
+        l++;
+        r--;
+    }
+}
+
+int next_permutation(char **arr, int n) {
+    int i = n - 2;
+    while (i >= 0 && strcmp(arr[i], arr[i+1]) >= 0) i--;
+    if (i < 0) return 0; // no more permutations
+
+    int j = n - 1;
+    while (strcmp(arr[j], arr[i]) <= 0) j--;
+
+    swap(&arr[i], &arr[j]);
+    reverse(arr, i+1, n-1);
+    return 1;
+}
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    char **arr = (char **)malloc(n * sizeof(char *));
+    for (int i = 0; i < n; i++) {
+        arr[i] = (char *)malloc(100 * sizeof(char));
+        scanf("%s", arr[i]);
+    }
+
+    for (int i = 0; i < n; i++) {
+        printf("%s", arr[i]);
+        if (i < n-1) printf(" ");
+    }
+    printf("\n");
+
+    while (next_permutation(arr, n)) {
+        for (int i = 0; i < n; i++) {
+            printf("%s", arr[i]);
+            if (i < n-1) printf(" ");
+        }
+        printf("\n");
+    }
+    for (int i = 0; i < n; i++) free(arr[i]);
+    free(arr);
+
+    return 0;
+}
+```
 
 
 
 Output:
 
 
-//paste your output here
-
-
-
+<img width="427" height="387" alt="image" src="https://github.com/user-attachments/assets/32792c22-cefc-4998-8cf2-003a5bbdb332" />
 
 
 
@@ -117,15 +207,37 @@ Algorithm:
  
 Program:
 
-//type your code here
+```
+#include <stdio.h>
 
+int main() {
+    int n;
+    scanf("%d", &n);
+
+    int size = 2 * n - 1;  
+
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            int minDist = i;
+            if (j < minDist) minDist = j;
+            if (size - 1 - i < minDist) minDist = size - 1 - i;
+            if (size - 1 - j < minDist) minDist = size - 1 - j;
+
+            printf("%d ", n - minDist);
+        }
+        printf("\n");
+    }
+
+    return 0;
+}
+```
 
 
 
 Output:
 
 
-//paste your output here
+<img width="637" height="785" alt="image" src="https://github.com/user-attachments/assets/5ee0ac54-89b3-4220-a6c9-7fd91d55b6bf" />
 
 
 
@@ -156,18 +268,34 @@ o	Call the square() function and display the result.
 
 Program:
 
-//type your code here
-
+```
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+    int n;
+    scanf("%d", &n);   
+    int *arr = (int *)malloc(n * sizeof(int));
+    if (arr == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+    long long sum = 0;  
+    for (int i = 0; i < n; i++) {
+        sum += arr[i];
+    }
+    printf("%lld\n", sum);
+    free(arr);
+    return 0;
+}
+```
 
 
 
 Output:
-
-
-//paste your output here
-
-
-
+<img width="1295" height="225" alt="image" src="https://github.com/user-attachments/assets/85c3d4ff-d2f8-42a0-8a56-0309b1a71fe5" />
 
 
 
